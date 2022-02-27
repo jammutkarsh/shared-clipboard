@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const fileLocation = "./client/.hidden/lists.json"
+const fileLocation = "/Users/utkarshchourasia/code/go/go-projects/shared-clipboard/server/.lists.json"
 
 func readJson() (elements []string) {
 	fileBytes, err := ioutil.ReadFile(fileLocation)
@@ -37,6 +37,7 @@ func writeJson(element []string) {
 		panic(err)
 	}
 }
+
 func add() {
 	addCMD := flag.NewFlagSet("add", flag.ExitOnError)
 	data := addCMD.String("c", "", "Enter your clip.")
@@ -59,9 +60,9 @@ func clear() {
 	_ = ioutil.WriteFile(fileLocation, clear, 0755)
 }
 
-func delete() {
-	delCMD := flag.NewFlagSet("delete", flag.ExitOnError)
-	data := delCMD.Int("d", 0, "delete a clip")
+func deleteClip() {
+	delCMD := flag.NewFlagSet("deleteClip", flag.ExitOnError)
+	data := delCMD.Int("d", 0, "deleteClip a clip")
 	if len(os.Args) < 3 {
 		fmt.Print(`Options:	
 	-d [value]
@@ -97,7 +98,7 @@ func list() {
 func help() {
 	fmt.Print(`Commands:	
 	add    - to add clip to server
-	delete - to delete a single data clip to the list.   
+	deleteClip - to deleteClip a single data clip to the list.   
 	list   - to display all clips.   
 	clear  - to clear the list.  
 `)

@@ -10,6 +10,6 @@ server:
 	@echo "Removing the server binary"
 	rm -f bin/server
 	@echo "Building the server binary"
-	go build -o bin/server server/main.go
+	go build -o bin/server server/server.go server/http.go server/db.go
 clear:
 	rm -f bin/*

@@ -19,8 +19,8 @@ func main() {
 		list()
 	case "clear":
 		clear()
-	case "delete":
-		delete()
+	case "deleteClip":
+		deleteClip()
 	case "help":
 		help()
 	default:
