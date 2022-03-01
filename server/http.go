@@ -2,9 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"net/http"
-	"strconv"
 )
 
 func getClips(w http.ResponseWriter, r *http.Request) {
@@ -24,22 +22,22 @@ func addClip(w http.ResponseWriter, r *http.Request) {
 	errHanding(err)
 }
 
-func deleteClip(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	params := mux.Vars(r)
-	clips := readJson()
-	for index, clip := range clips {
-		paraIndex, err := strconv.Atoi(params["index"])
-		errHanding(err)
-		if paraIndex == clip.Index {
-			clips = append(clips[:index], clips[index+1:]...)
-			break
-		}
-	}
-	writeJson(clips)
-	err := json.NewEncoder(w).Encode(clips)
-	errHanding(err)
-}
+//func deleteClip(w http.ResponseWriter, r *http.Request) {
+//	w.Header().Set("Content-Type", "application/json")
+//	params := mux.Vars(r)
+//	clips := readJson()
+//	for index, clip := range clips {
+//		paraIndex, err := strconv.Atoi(params["index"])
+//		errHanding(err)
+//		if paraIndex == clip.Index {
+//			clips = append(clips[:index], clips[index+1:]...)
+//			break
+//		}
+//	}
+//	writeJson(clips)
+//	err := json.NewEncoder(w).Encode(clips)
+//	errHanding(err)
+//}
 
 func clearClips(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

@@ -7,11 +7,10 @@ import (
 )
 
 type Clipboard struct {
-	Index int    `json:"index"`
-	Clip  string `json:"clip"`
+	Clip string `json:"clip"`
 }
 
-const fileLocation = "/Users/utkarshchourasia/code/go/go-projects/shared-clipboard/server/.lists.json"
+const fileLocation = ".lists.json"
 
 func readJson() (elements []Clipboard) {
 	fileBytes, err := ioutil.ReadFile(fileLocation)
@@ -39,7 +38,8 @@ func FileExists(filename string) bool {
 
 func clear() {
 	clear := []byte("[]")
-	_ = ioutil.WriteFile(fileLocation, clear, 0755)
+	err := ioutil.WriteFile(fileLocation, clear, 0755)
+	errHanding(err)
 }
 
 func errHanding(err error) {

@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const fileLocation = "/Users/utkarshchourasia/code/go/go-projects/shared-clipboard/server/.lists.json"
+const fileLocation = ".lists.json"
 
 func readJson() (elements []string) {
 	fileBytes, err := ioutil.ReadFile(fileLocation)
@@ -39,25 +39,27 @@ func writeJson(element []string) {
 }
 
 func add() {
-	addCMD := flag.NewFlagSet("add", flag.ExitOnError)
-	data := addCMD.String("c", "", "Enter your clip.")
-	if len(os.Args) < 3 {
-		fmt.Print(`Options:	
-	-c "your clip"
-`)
-		os.Exit(0)
-	}
-	err := addCMD.Parse(os.Args[2:])
-	if err != nil {
-		panic(err)
-	}
-	element := append(readJson(), *data)
-	writeJson(element)
+	//	addCMD := flag.NewFlagSet("add", flag.ExitOnError)
+	//	data := addCMD.String("c", "", "Enter your clip.")
+	//	if len(os.Args) < 3 {
+	//		fmt.Print(`Options:
+	//	-c "your clip"
+	//`)
+	//		os.Exit(0)
+	//	}
+	//	err := addCMD.Parse(os.Args[2:])
+	//	if err != nil {
+	//		panic(err)
+	//	}
+	//	element := append(readJson(), *data)
+	//	writeJson(element)
+	POSTclip()
 }
 
 func clear() {
 	clear := []byte("[]")
 	_ = ioutil.WriteFile(fileLocation, clear, 0755)
+	DELETEclips()
 }
 
 func deleteClip() {
@@ -89,10 +91,11 @@ func deleteClip() {
 }
 
 func list() {
-	readData := readJson()
-	for i, data := range readData {
-		fmt.Printf("|%d|\t%s\t|\n", i+1, data)
-	}
+	GETclip()
+	//readData := readJson()
+	//for i, data := range readData {
+	//	fmt.Printf("|%d|\t%s\t|\n", i+1, data)
+	//}
 }
 
 func help() {

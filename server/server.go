@@ -23,7 +23,7 @@ func main() {
 	// Route handles & endpoints
 	router.HandleFunc("/fetch", getClips).Methods("GET")
 	router.HandleFunc("/add", addClip).Methods("POST")
-	router.HandleFunc("/delete/{index}", deleteClip).Methods("DELETE")
+	//router.HandleFunc("/delete/{index}", deleteClip).Methods("DELETE")
 	router.HandleFunc("/clear", clearClips).Methods("DELETE")
 
 	// Start server
