@@ -21,7 +21,6 @@ func readJson() (elements []Clipboard) {
 }
 
 func writeJson(element []Clipboard) {
-
 	infoByte, err := json.Marshal(element)
 	errHanding(err)
 	err = ioutil.WriteFile(fileLocation, infoByte, 0644)
@@ -44,6 +43,6 @@ func clear() {
 
 func errHanding(err error) {
 	if err != nil {
-		panic(err)
+		return
 	}
 }

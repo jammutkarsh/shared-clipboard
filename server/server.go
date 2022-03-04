@@ -1,15 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gorilla/mux"
-	"log"
-	"net/http"
+	"github.com/gin-gonic/gin"
 	"os"
 )
 
 func main() {
-	// File Check
+	// DB Json File Check
 	if !FileExists(fileLocation) {
 		_, err := os.Create(fileLocation)
 		clear()
@@ -18,15 +15,12 @@ func main() {
 		}
 	}
 	// Init router
-	router := mux.NewRouter()
+	router := gin.Default()
 
-	// Route handles & endpoints
-	router.HandleFunc("/fetch", getClips).Methods("GET")
-	router.HandleFunc("/add", addClip).Methods("POST")
-	//router.HandleFunc("/delete/{index}", deleteClip).Methods("DELETE")
-	router.HandleFunc("/clear", clearClips).Methods("DELETE")
+	router.GET("/fetch", getClips)
+	router.POST("/add", postClip)
+	router.DELETE("/clear", deleteClips)
 
-	// Start server
-	fmt.Println("Starting server at http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	err := router.Run("localhost:8080")
+	errHanding(err)
 }

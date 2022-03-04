@@ -1,50 +1,29 @@
 package main
 
 import (
-	"encoding/json"
+	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func getClips(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	err := json.NewEncoder(w).Encode(readJson())
-	errHanding(err)
+func getClips(context *gin.Context) {
+	clipData := readJson()
+	context.JSON(http.StatusOK, clipData)
 }
 
-func addClip(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func postClip(context *gin.Context) {
+	var newClip Clipboard
+	if err := context.BindJSON(&newClip); err != nil {
+		return
+	}
 	clips := readJson()
-	var newClips Clipboard
-	_ = json.NewDecoder(r.Body).Decode(&newClips)
-	clips = append(clips, newClips)
+	clips = append(clips, newClip)
 	writeJson(clips)
-	err := json.NewEncoder(w).Encode(newClips)
-	errHanding(err)
+	context.JSON(http.StatusCreated, newClip)
 }
 
-//func deleteClip(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Content-Type", "application/json")
-//	params := mux.Vars(r)
-//	clips := readJson()
-//	for index, clip := range clips {
-//		paraIndex, err := strconv.Atoi(params["index"])
-//		errHanding(err)
-//		if paraIndex == clip.Index {
-//			clips = append(clips[:index], clips[index+1:]...)
-//			break
-//		}
-//	}
-//	writeJson(clips)
-//	err := json.NewEncoder(w).Encode(clips)
-//	errHanding(err)
-//}
-
-func clearClips(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+func deleteClips(context *gin.Context) {
 	clear()
-	clips := readJson()
-	err := json.NewEncoder(w).Encode(clips)
-	errHanding(err)
+	context.JSON(http.StatusOK, readJson())
 }
 
 // TODO In a web server, if you panic you miss the opportunity to respond appropriately to the client with say, an http 500
