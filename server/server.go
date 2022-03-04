@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"os"
 )
 
@@ -11,7 +12,7 @@ func main() {
 		_, err := os.Create(fileLocation)
 		clear()
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 	}
 	// Init router
@@ -22,5 +23,7 @@ func main() {
 	router.DELETE("/clear", deleteClips)
 
 	err := router.Run("localhost:8080")
-	errHanding(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

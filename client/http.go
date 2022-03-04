@@ -17,7 +17,12 @@ func GETclip() {
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
 
 	//resp, err := http.Get("http://localhost:8080/fetch")
 	//if err != nil {
@@ -89,3 +94,5 @@ func DELETEclips() {
 	bodyString := string(bodyBytes)
 	fmt.Println(bodyString)
 }
+
+// TODO: respond back to use for bad response from client side.

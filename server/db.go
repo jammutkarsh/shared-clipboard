@@ -14,17 +14,22 @@ const fileLocation = ".lists.json"
 
 func readJson() (elements []Clipboard) {
 	fileBytes, err := ioutil.ReadFile(fileLocation)
-	errHanding(err)
+	if err != nil {
+		panic(err)
+	}
 	err = json.Unmarshal(fileBytes, &elements)
-	errHanding(err)
+	if err != nil {
+		panic(err)
+	}
 	return elements
 }
 
 func writeJson(element []Clipboard) {
 	infoByte, err := json.Marshal(element)
-	errHanding(err)
 	err = ioutil.WriteFile(fileLocation, infoByte, 0644)
-	errHanding(err)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func FileExists(filename string) bool {
@@ -38,11 +43,13 @@ func FileExists(filename string) bool {
 func clear() {
 	clear := []byte("[]")
 	err := ioutil.WriteFile(fileLocation, clear, 0755)
-	errHanding(err)
-}
-
-func errHanding(err error) {
 	if err != nil {
-		return
+		panic(err)
 	}
 }
+
+//func errHanding(err error) {
+//	if err != nil {
+//		return
+//	}
+//}
