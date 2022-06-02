@@ -14,11 +14,6 @@ func add() {
 func clear() {
 	clear := []byte("[]")
 	_ = ioutil.WriteFile(fileLocation, clear, 0755)
-	DELETEclips()
-}
-
-func deleteClip() {
-	// call single delete http method.
 }
 
 func list() {
@@ -28,7 +23,6 @@ func list() {
 func help() {
 	fmt.Print(`Commands:	
 	add    - to add clip to server
-	deleteClip - to deleteClip a single data clip to the list.   
 	list   - to display all clips.   
 	clear  - to clear the list.  
 `)

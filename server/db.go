@@ -2,54 +2,55 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 )
 
-type Clipboard struct {
-	Clip string `json:"clip"`
+const FILELOCATION = "server/.list.json"
+
+func readJSON() (clips []string) {
+	if fileExist() {
+		fileBytes, err := ioutil.ReadFile(FILELOCATION)
+		if err != nil {
+			panic(err)
+		}
+		err = json.Unmarshal(fileBytes, &clips)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		fmt.Println("File can not created")
+	}
+	return clips
 }
 
-const fileLocation = ".lists.json"
-
-func readJson() (elements []Clipboard) {
-	fileBytes, err := ioutil.ReadFile(fileLocation)
-	if err != nil {
-		panic(err)
-	}
-	err = json.Unmarshal(fileBytes, &elements)
-	if err != nil {
-		panic(err)
-	}
-	return elements
-}
-
-func writeJson(element []Clipboard) {
+func writeJSON(data string) {
+	element := append(readJSON(), data)
 	infoByte, err := json.Marshal(element)
-	err = ioutil.WriteFile(fileLocation, infoByte, 0644)
+	if err != nil {
+		panic(err)
+	}
+	err = ioutil.WriteFile(FILELOCATION, infoByte, 0644)
 	if err != nil {
 		panic(err)
 	}
 }
+func fileExist() bool {
+	_, err := os.Stat(FILELOCATION)
 
-func FileExists(filename string) bool {
-	info, err := os.Stat(filename)
 	if os.IsNotExist(err) {
+		//creating file
+		cleanDB()
 		return false
+		//file not exist
 	}
-	return !info.IsDir()
+	return true
 }
 
-func clear() {
-	clear := []byte("[]")
-	err := ioutil.WriteFile(fileLocation, clear, 0755)
+func cleanDB() {
+	err := os.WriteFile(FILELOCATION, []byte("[]"), 0755)
 	if err != nil {
-		panic(err)
+		fmt.Printf("Unable to write file: %v", err)
 	}
 }
-
-//func errHanding(err error) {
-//	if err != nil {
-//		return
-//	}
-//}

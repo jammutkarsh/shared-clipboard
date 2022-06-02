@@ -21,5 +21,7 @@ inserver:
 	rm -f bin/server
 	@echo "Building the server binary"
 	go install server/server.go server/http.go server/db.go
+rserver: server
+		./bin/server
 clear:
 	rm -f bin/*

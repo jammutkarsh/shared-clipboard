@@ -10,36 +10,3 @@ I had to manually check in my laptop and then type it there on the server. With 
 transfer clips across devices without using ssh._
 
 PS: It is still in development. 💫️
-
-[//]: # ([Further reading!]&#40;https://github.com/JammUtkarsh/shared-clipboard/blob/master/README.md?plain=1&#41;)
-
-[//]: # (It's commented as of now.)
-
-[//]: # ()
-[//]: # (## Development and testing)
-
-[//]: # (Clone the project)
-
-[//]: # (```git)
-
-[//]: # (git clone https://github.com/JammUtkarsh/shared-clipboard)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Change directory )
-
-[//]: # (```bash)
-
-[//]: # (cd shared-clipboard)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Build the project)
-
-[//]: # (```bash)
-
-[//]: # (make client)
-
-[//]: # (```)
