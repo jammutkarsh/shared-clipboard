@@ -9,4 +9,6 @@ _I came across this problem when I was setting up my personal server, and I coul
 I had to manually check in my laptop and then type it there on the server. With Shared Clipboard, you will be able to
 transfer clips across devices without using ssh._
 
-PS: It is still in development. 💫️
+Starting from scratch and with new frameworks
+
+Reffer [cshare](https://github.com/JammUtkarsh/cshare)!
